@@ -1,26 +1,29 @@
 -- DROP FUNCTION public.create_output_channel();
 
 CREATE OR REPLACE FUNCTION public.create_output_channel(id integer, relay text)
- RETURNS integer
+ RETURNS bool
  LANGUAGE plpgsql
 AS $function$
 	BEGIN
-		INSERT INTO output_channels (channel_id, relay_group) VALUES (id, relay);
 
-		INSERT INTO relay_groups (relay_group)
-		SELECT relay
-		WHERE relay NOT IN (SELECT relay_group from relay_groups)
+		IF 
+		
+		 id    NOT IN (SELECT channel_id FROM output_channels) AND 
+		 relay NOT IN (SELECT relay FROM output_channels)
+	
+		THEN	 
+		 
+			INSERT INTO output_channels (channel_id, relay_group) VALUES (id, relay);
 
-		AND 0 in (
+			INSERT INTO relay_groups (relay_group)
+			SELECT relay
+			WHERE relay NOT IN (SELECT relay_group from relay_groups);
 
-			SELECT COUNT(*) from output_channels
-
-			WHERE channel_id  = id
-			AND   relay_group = relay
-
-		);
-
-		RETURN 0;
+			RETURN TRUE;
+			
+		ELSE RETURN FALSE;
+		
+		END IF;
 	END;
 $function$
 ;
