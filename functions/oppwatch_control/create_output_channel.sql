@@ -10,6 +10,8 @@ AS $function$
 		INSERT INTO relay_groups (relay_group)
 		SELECT relay
 		WHERE relay NOT IN (SELECT relay_group from relay_groups);
+		
+		RETURN 0;
 	END;
 $function$
 ;
