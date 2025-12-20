@@ -1,4 +1,4 @@
-DELETE FROM relay_groups (relay_group)
+DELETE FROM relay_groups 
 SELECT relay_group AS name FROM input_channels 
 
 WHERE channel_id = %s
