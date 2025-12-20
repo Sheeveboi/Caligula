@@ -1,23 +1,24 @@
-DELETE FROM relay_groups 
-SELECT relay_group AS name FROM input_channels 
+DELETE FROM relay_groups as r
 
-WHERE channel_id = %s
+WHERE relay_group IN (
 
--- delete if no channenls are using this relay group
--- the input channel check here looks for one, because the channel hasnt been deleted yet
-WHERE 1 IN (
-	SELECT COUNT(relay_group) from input_channels	
-	WHERE relay_group = name
-);
+	SELECT relay_group AS name FROM input_channels
+	WHERE channel_id = %s
 
-WHERE 0 IN (
-	SELECT COUNT(relay_group) from output_channels	
-	WHERE relay_group = name
-);
+	AND 1 IN (
+		SELECT COUNT(relay_group) from input_channels as i	
+		WHERE r.relay_group = i.relay_group
+	)
 
-WHERE 0 IN (
-	SELECT COUNT(relay_group) from alert_channels	
-	WHERE relay_group = name
+	AND 0 IN (
+		SELECT COUNT(relay_group) from output_channels as o
+		WHERE r.relay_group = o.relay_group
+	)
+
+	and 0 IN (
+		SELECT COUNT(relay_group) from alert_channels as a
+		WHERE r.relay_group = a.relay_group
+	)
 );
 
 DELETE FROM input_channels WHERE channel_id = %s;
