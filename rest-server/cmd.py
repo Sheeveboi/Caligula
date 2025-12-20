@@ -77,13 +77,13 @@ async def run(c, query) :
             
         if (type(mapping) == list) :
             for index in mapping : 
-                arguments.insert(index, c.headers[argument]);
+                arguments.insert(index, argumentValue);
         
         elif (type(mapping) == int) :
-            arguments.insert(mapping, c.headers[argument]);
+            arguments.insert(mapping, argumentValue);
         
         else :
-            return await disc.sendMsg(c['channel_id'], f"Incorrect argument type for argument {argument}");
+            return await disc.sendMsg(c['channel_id'], f"500 Incorrect argument type for argument {argumentKey}");
         
     tuple(arguments);
     
