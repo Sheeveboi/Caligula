@@ -88,5 +88,5 @@ async def run(c, query) :
 
 disc.addCommand(run, plaintext = True);
 
-async def recache() : db.cacheFunctions()
+async def recache(c) : db.cacheFunctions()
 disc.addCommand(recache)
