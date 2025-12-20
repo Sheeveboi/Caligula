@@ -1,10 +1,7 @@
 DELETE FROM relay_groups (relay_group)
-SELECT relay_group AS name FROM input_channels WHERE channel_id = %s
+SELECT relay_group AS name FROM input_channels 
 
--- delete if this relay group exists
-WHERE name IN (
-	SELECT relay_group from relay_groups
-)
+WHERE channel_id = %s
 
 -- delete if no channenls are using this relay group
 -- the input channel check here looks for one, because the channel hasnt been deleted yet
