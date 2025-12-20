@@ -1,1 +1,1 @@
-SELECT creat_channel(%s, %s, 1);
+SELECT create_channel(%s, %s, 1);
