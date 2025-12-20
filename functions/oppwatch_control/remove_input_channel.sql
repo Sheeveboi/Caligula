@@ -35,6 +35,6 @@ BEGIN
 	RETURN 0;
 	
 END;
-$function$
+$function$;
 
 SELECT remove_input_channel(%s);
