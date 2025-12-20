@@ -6,10 +6,9 @@ CREATE OR REPLACE FUNCTION public.create_alert_channel(id integer, relay text)
 AS $function$
 	BEGIN
 
-		IF 
-		
-		 id    NOT IN (SELECT channel_id FROM alert_channels) AND 
-		 relay NOT IN (SELECT relay FROM alert_channels)
+		IF id NOT IN (
+			SELECT channel_id FROM alert_channels WHERE relay_group = relay
+		)
 	
 		THEN	 
 		 

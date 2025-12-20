@@ -6,10 +6,9 @@ CREATE OR REPLACE FUNCTION public.create_input_channel(id integer, relay text)
 AS $function$
 	BEGIN
 
-		IF 
-		
-		 id    NOT IN (SELECT channel_id FROM input_channels) AND 
-		 relay NOT IN (SELECT relay FROM input_channels)
+		IF id NOT IN (
+			SELECT channel_id FROM input_channels WHERE relay_group = relay
+		)
 	
 		THEN	 
 		 
