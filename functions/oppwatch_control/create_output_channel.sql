@@ -13,7 +13,7 @@ AS $function$
 
 		AND 0 in (
 
-			SELECT channel_id, relay_group from output_channels
+			SELECT COUNT(*) from output_channels
 
 			WHERE channel_id  = id
 			AND   relay_group = relay
