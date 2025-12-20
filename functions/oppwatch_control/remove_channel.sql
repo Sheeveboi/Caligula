@@ -1,0 +1,1 @@
+select remove_channel(%s, %s);
