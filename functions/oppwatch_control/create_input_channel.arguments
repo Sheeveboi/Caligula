@@ -1,4 +1,4 @@
 {
-	"channel_id"  : 0,
+	"channel_id"  : [0,2,3],
 	"relay_group" : 1
 }
