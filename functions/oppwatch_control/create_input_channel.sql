@@ -10,7 +10,16 @@ AS $function$
 		
 		INSERT INTO relay_groups (relay_group)
 		SELECT relay 
-		WHERE relay NOT IN (SELECT relay_group from relay_groups);
+		WHERE relay NOT IN (SELECT relay_group from relay_groups)
+
+		AND 0 in (
+
+			SELECT channel_id, relay_group from input_channels
+
+			WHERE channel_id  = id
+			AND   relay_group = relay
+
+		);
 
 		RETURN 0;
 	END;
