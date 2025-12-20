@@ -195,7 +195,18 @@ def handleFunctionRequest(c) :
             return sendError(c, 400, f"'{argument}' header not present in request.");
         
         elif (header in argumentMappings) :
-            arguments.insert(argumentMappings[argument], c.headers[argument]);
+            
+            mapping = argumentMappings[argument];
+            
+            if (type(mapping) == list) :
+                for index in mapping : 
+                    arguments.insert(index, c.headers[argument]);
+            
+            elif (type(mapping) == int) :
+                arguments.insert(mapping, c.headers[argument]);
+            
+            else :
+                return sendError(c, 500, f"Incorrect argument type for argument {argument}");
      
 
     tuple(arguments);

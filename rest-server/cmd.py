@@ -73,7 +73,17 @@ async def run(c, query) :
         if ("'" in argument[1]) : argumentValue = util.clip(argument[1].replace("'" , ""));
         else                    : argumentValue = int(argument[1]);
         
-        arguments.insert(argumentMappings[argumentKey], argumentValue);
+        mapping = argumentMappings[argument];
+            
+        if (type(mapping) == list) :
+            for index in mapping : 
+                arguments.insert(index, c.headers[argument]);
+        
+        elif (type(mapping) == int) :
+            arguments.insert(mapping, c.headers[argument]);
+        
+        else :
+            return await disc.sendMsg(c['channel_id'], f"Incorrect argument type for argument {argument}");
         
     tuple(arguments);
     
