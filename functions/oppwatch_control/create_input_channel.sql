@@ -1,19 +1,20 @@
 -- DROP FUNCTION public.create_input_channel();
 
-CREATE OR REPLACE FUNCTION public.create_input_channel(id int, relay text)
-	RETURNS int4
-	LANGUAGE plpgsql
-AS $$
+CREATE OR REPLACE FUNCTION public.create_input_channel(id integer, relay text)
+ RETURNS integer
+ LANGUAGE plpgsql
+AS $function$
 	BEGIN
 		INSERT INTO input_channels (channel_id, relay_group) 
 		VALUES (id, relay);
 		
 		INSERT INTO relay_groups (relay_group)
-		SELECT id 
-		WHERE id NOT IN (SELECT relay_group from relay_groups);
+		SELECT relay 
+		WHERE relay NOT IN (SELECT relay_group from relay_groups);
 
 		RETURN 0;
 	END;
-$$;
+$function$
+;
 
 SELECT create_input_channel(%s, %s);

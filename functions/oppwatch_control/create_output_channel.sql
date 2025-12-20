@@ -1,16 +1,17 @@
 -- DROP FUNCTION public.create_output_channel();
 
-CREATE OR REPLACE FUNCTION public.create_output_channel(id int, relay text)
-	RETURNS int4
-	LANGUAGE plpgsql
-AS $$
+CREATE OR REPLACE FUNCTION public.create_output_channel(id integer, relay text)
+ RETURNS integer
+ LANGUAGE plpgsql
+AS $function$
 	BEGIN
 		INSERT INTO output_channels (channel_id, relay_group) VALUES (id, relay);
 
 		INSERT INTO relay_groups (relay_group)
-		SELECT id 
-		WHERE id NOT IN (SELECT relay_group from relay_groups);
+		SELECT relay
+		WHERE relay NOT IN (SELECT relay_group from relay_groups);
 	END;
-$$;
+$function$
+;
 
 SELECT create_output_channel(%s, %s);
