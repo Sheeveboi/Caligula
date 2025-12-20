@@ -198,21 +198,11 @@ def handleFunctionRequest(c) :
             
             mapping = argumentMappings[argument];
             
-            if (type(mapping) == list) :
-                for index in mapping : 
-                    arguments.insert(index, c.headers[argument]);
-            
-            elif (type(mapping) == int) :
-                arguments.insert(mapping, c.headers[argument]);
-            
-            else :
-                return sendError(c, 500, f"Incorrect argument type for argument {argument}");
-     
+            arguments.insert(mapping, c.headers[argument]);
 
     tuple(arguments);
      
     db.runFunction(c.headers["Function"], arguments, c.headers['Database']);
-    
     
 addPostHandler(handleFunctionRequest, "/functions");
 

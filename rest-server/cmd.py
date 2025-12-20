@@ -75,21 +75,7 @@ async def run(c, query) :
         
         mapping = argumentMappings[argumentKey];
         
-        print(mapping);
-            
-        if (type(mapping) == list) :
-            for index in mapping : 
-                arguments.insert(index, argumentValue);
-        
-        elif (type(mapping) == int) :
-            arguments.insert(mapping, argumentValue);
-        
-        else :
-            return await disc.sendMsg(c['channel_id'], f"500 Incorrect argument type for argument {argumentKey}");
-        
-    tuple(arguments);
-    
-    print(arguments);
+        arguments.insert(mapping, argumentValue);
     
     #-- end assemble arguments tuple 
     
