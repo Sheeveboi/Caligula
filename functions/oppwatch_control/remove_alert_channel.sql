@@ -1,0 +1,1 @@
+DELETE FROM alert_channels WHERE channel_id = %s;
