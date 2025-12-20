@@ -15,6 +15,7 @@ def cacheFunctions() :
     
     try :
         
+        functions = {};
         
         directory = config["Sql"]["function_dir"];
         databaseDirectories = os.listdir(directory);
