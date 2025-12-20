@@ -73,7 +73,7 @@ async def run(c, query) :
         if ("'" in argument[1]) : argumentValue = util.clip(argument[1].replace("'" , ""));
         else                    : argumentValue = int(argument[1]);
         
-        mapping = argumentMappings[argument];
+        mapping = argumentMappings[argumentKey];
             
         if (type(mapping) == list) :
             for index in mapping : 
