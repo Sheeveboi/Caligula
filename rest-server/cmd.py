@@ -85,5 +85,8 @@ async def run(c, query) :
     
     #execute function 
     await disc.sendMsg(c['channel_id'], db.runFunction(functionName, arguments, database, connection = connection));
-    
+
 disc.addCommand(run, plaintext = True);
+
+async def recache() : db.cacheFunctions()
+disc.addCommand(recache)
