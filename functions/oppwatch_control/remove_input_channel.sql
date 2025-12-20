@@ -1,1 +1,1 @@
-DELETE FROM input_tables WHERE channel_id = %s;
+DELETE FROM input_channels WHERE channel_id = %s;
