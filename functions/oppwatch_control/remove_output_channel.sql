@@ -36,4 +36,4 @@ BEGIN
 END;
 $$;
 
-SELECT toggle_pos(%s);
+SELECT remove_output_channel(%s);
