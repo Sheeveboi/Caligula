@@ -1,6 +1,6 @@
 INSERT INTO input_channels (channel_id, relay_group) 
 VALUES (%s, %s);
 
-INSERT INTO relay_group(name)
+INSERT INTO relay_groups (name)
 SELECT %s 
-WHERE %s NOT IN (SELECT name from relay_group);
+WHERE %s NOT IN (SELECT name from relay_groups);
