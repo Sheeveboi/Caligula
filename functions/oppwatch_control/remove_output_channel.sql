@@ -1,0 +1,1 @@
+DELETE FROM output_channels WHERE channel_id = %s;
