@@ -1,1 +1,1 @@
-SELECT create_default_player(%s);
+SELECT create_default_player(%(username)s);

@@ -61,7 +61,6 @@ def runFunction(functionName, functionArguments, database, connection = None) :
     
     return runSQL(function['sql'], database, arguments = functionArguments, connection = connection);
     
-    
 def createConnection(database) :
     
     connection = psycopg2.connect (
@@ -79,7 +78,7 @@ def runSQL(sql, database, arguments = None, connection = None,) :
         
         #create connection
         connection = psycopg2.connect (
-            dbname = database,
+            dbname = config["Sql"]["database"],
             user = config["Sql"]["user"],
             password = config["Sql"]["password"],
             host = config["Sql"]["host"]
@@ -88,11 +87,18 @@ def runSQL(sql, database, arguments = None, connection = None,) :
     #create cursor
     cursor = connection.cursor();
     
-    #execute sql
-    cursor.execute(sql, arguments);
+    print(sql);
+
+    try :
+        #execute sql   
+        msql = cursor.mogrify(sql, arguments);
+        
+        print(msql)
+        
+        cursor.execute(msql)
     
-    #gather result
-    try    : out = f"Sql result: {cursor.fetchall()}";
+        #gather result
+        out = cursor.fetchall()
     except Exception as e : out = f"Sql warning: {e}";
     
     #cleanup

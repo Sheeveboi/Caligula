@@ -1,1 +1,1 @@
-SELECT create_default_nation(%s);
+SELECT create_default_nation(%(nation_name)s);

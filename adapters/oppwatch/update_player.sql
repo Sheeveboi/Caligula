@@ -1,1 +1,1 @@
-SELECT update_player(%s, %s, %s, %s, %s, %s);
+SELECT update_player(%(username)s, %(new_username)s, %(new_threat)s, %(new_img)s, %(new_notes)s, %(new_nation)s);

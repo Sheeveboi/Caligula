@@ -110,14 +110,14 @@ def parseArgumentQuery(string) :
             arguments[currentKey] = int(composite[0])
             currentKey = clip(composite[1])
             
-    finalComposite = composites[len(composites) - 1];   
+    finalComposite = clip(composites[len(composites) - 1]);
 
     if (finalComposite[0] == "'") :
             
         nextQuotation = re.search("'", finalComposite[1:]).span()[1] + 1
         argument = finalComposite[0:nextQuotation];
         
-        arguments[currentKey] = str(finalComposite).replace("'","");
+        arguments[currentKey] = str(finalComposite.replace("'",""));
         
     else :
         

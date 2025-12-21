@@ -1,1 +1,1 @@
-SELECT toggle_pos(%s);
+SELECT toggle_pos(%(username)s);

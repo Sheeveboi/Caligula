@@ -1,1 +1,1 @@
-SELECT remove_nation(%s);
+SELECT remove_nation(%(nation_name)s);

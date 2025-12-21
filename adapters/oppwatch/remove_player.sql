@@ -1,1 +1,1 @@
-SELECT remove_player(%s);
+SELECT remove_player(%(username)s);

@@ -1,1 +1,1 @@
-SELECT update_channel(%s, %s, %s, %s, %s);
+SELECT update_channel(%(channel_id)s, %(relay_group)s, %(new_relay)s, %(new_channel_type)s, %(new_notif_id)s);

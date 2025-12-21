@@ -1,1 +1,1 @@
-SELECT create_snitch_hit(%s, %s, %s, %s, %s, %s, %s, %s);
+SELECT create_snitch_hit(%(username)s, %(relay_group)s, %(snitch_name)s, %(name_layer)s, %(nation)s, %(x_coordinate)s, %(y_coordinate)s, %(z_coordinate)s);

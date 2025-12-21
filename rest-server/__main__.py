@@ -16,11 +16,11 @@ if __name__ == '__main__' :
     
     db.cacheFunctions();
     
-    discord = disc.Events();
+    #discord = disc.Events();
     
-    discord.onReady = onReady;
+    #discord.onReady = onReady;
     
     threading.Thread(target = web.run, name = "webserver thread").start();
     
-    try : discord.run();
-    except KeyboardInterrupt : print("testMain stopped by user");
+    #try : discord.run();
+    #except KeyboardInterrupt : print("testMain stopped by user");

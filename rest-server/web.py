@@ -1,11 +1,13 @@
 import time;
-import fb;
+import db;
 import disc;
 import util;
 import json;
 import asyncio;
 import os;
 import logging;
+import logger;
+import psycopg2;
 from http.server import BaseHTTPRequestHandler, HTTPServer;
 from urllib.parse import urlparse;
 from urllib.parse import parse_qs;
@@ -139,72 +141,45 @@ class MyServer(BaseHTTPRequestHandler):
         except Exception as e : logging.error("uh oh",exc_info=True);
 
     #the path that matches the most characters to the desired path is the one that will be selected
-    
-def serveFiles(c) :
-    
-    file = None;
-    try    : file = open(os.path.join( here, c.path[1:len(c.path)] ), "rb");
-    except : 
-        sendError(c, 404, "what else could you possibly need?");
-        return;
-        
-    data = file.read();      
-    
-    c.send_response(200);
-    c.send_header('Content-Length', len(data));
-    c.send_header('Content-Type', c.headers['Accept']);
-    c.end_headers();
-    
-    c.wfile.write(data);
-    
-addGetHandler(serveFiles, "/src");
 
-def serveSite(c) :
-    
-    parsedUrl = urlparse(c.path);
-    query = parse_qs(parsedUrl.query);
-    
-    site = open(os.path.join(here,"src/index.html"), 'rb').read();
-    
-    print(site);
-    
-    sessionTokens[c.client_address[0]] = util.genKey(20);
+def echo(c) :
     
     c.send_response(200);
-    c.send_header('Content-Length', len(site));
     c.end_headers();
     
-    c.wfile.write(site);
+    c.wfile.write(b'its as if they never even knew they were interesting'); 
     
-addGetHandler(serveSite, "/");
+    logger.log("echo succsess");
+    
+addGetHandler(echo, "/echo");
 
 def handleFunctionRequest(c) :
     
     requiredHeaders = ['Function', 'Database'];
-    arguments = [];
-        
-    if (not db.functionExists(functionName)) : return sendError(c, 400, "Function does not exist.");
-    
-    argumentMappings = db.getFunction(functionName)['arguments'];
-    
-    requiredHeaders += [argument for argument in argumentMappings];
     
     for header in requiredHeaders :
         
         if (not header in c.headers) : 
             return sendError(c, 400, f"'{argument}' header not present in request.");
-        
-        elif (header in argumentMappings) :
-            
-            mapping = argumentMappings[argument];
-            
-            arguments.insert(mapping, c.headers[argument]);
-
-    tuple(arguments);
-     
-    db.runFunction(c.headers["Function"], arguments, c.headers['Database']);
     
-addPostHandler(handleFunctionRequest, "/functions");
+    functionName = c.headers['Function'];
+    
+    print("doing something??");
+    
+    logger.log(f"-- executing REST function {functionName}");
+
+    arguments = c.rfile.read(int(c.headers['Content-Length']));
+    arguments = json.loads(arguments.decode('utf-8'));
+            
+    tuple(arguments.items());
+     
+    out = db.runFunction(c.headers["Function"], arguments, c.headers['Database']);
+    
+    c.send_response(200);
+    c.end_headers();
+    c.wfile.write(bytes(out, 'utf-8'));
+    
+addGetHandler(handleFunctionRequest, "/functions");
 
 def run() :  
     running = True;

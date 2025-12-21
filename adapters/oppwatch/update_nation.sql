@@ -1,1 +1,1 @@
-SELECT update_nation(%s, %s, %s, %s, %s);
+SELECT update_nation(%(nation_name)s, %(new_nation_name)s, %(new_threat)s, %(new_img)s, %(new_notes)s);

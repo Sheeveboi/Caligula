@@ -45,41 +45,5 @@ async def sql(c, sql) :
 
 disc.addCommand(sql, plaintext = True);
 
-async def run(c, query) : 
-    
-    if (not await checkAuth(c)) : return;
-    
-    logger.log(f"-- SQL Function executed: {sql}");
-    
-    #-- start assemble arguments tuple
-    
-    query = query.split("(");
-    query[1] = query[1].replace(")", "");
-    
-    functionName = util.clip(query[0]);
-    arguments = [];
-    
-    argumentMappings = db.getFunctionArguments(functionName);
-    argumentPairs = util.parseArgumentQuery(query[1])
-    
-    print(argumentPairs);
-    
-    for argument in argumentPairs :
-    
-        mapping = argumentMappings[argument]
-        
-        arguments.insert(mapping, argumentPairs[argument]);
-    
-    #-- end assemble arguments tuple 
-    
-    await disc.sendMsg(c['channel_id'], f"Running function {functionName} in {database}");
-    
-    connection = db.createConnection(database);
-    
-    #execute function 
-    await disc.sendMsg(c['channel_id'], db.runFunction(functionName, arguments, database, connection = connection));
-
-disc.addCommand(run, plaintext = True);
-
 async def recache(c) : db.cacheFunctions()
 disc.addCommand(recache)

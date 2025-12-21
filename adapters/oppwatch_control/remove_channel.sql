@@ -1,1 +1,1 @@
-select remove_channel(%s, %s);
+select remove_channel(%(channel_id)s, %(relay_group)s);

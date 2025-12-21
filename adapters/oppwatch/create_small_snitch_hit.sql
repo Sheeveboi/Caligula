@@ -1,1 +1,1 @@
-SELECT create_small_snitch_hit(%s, %s, %s, %s, %s);
+SELECT create_small_snitch_hit(%(username)s, %(relay_group)s, %(x_coordinates)s, %(y_coordinatess, %(z_coordinatess);

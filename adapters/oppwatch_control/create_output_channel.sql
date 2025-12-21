@@ -1,1 +1,1 @@
-SELECT create_channel(%s, %s, 1);
+SELECT create_channel(%(channel_id)s, %(relay_group)s, 1);
