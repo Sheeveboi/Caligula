@@ -110,7 +110,7 @@ def parseArgumentQuery(string) :
             arguments[currentKey] = int(composite[0])
             currentKey = clip(composite[1])
             
-    arguments[currentKey] = clip(composites[len(composites) - 1])
+    arguments[currentKey] = clip(composites[len(composites) - 1].replace("'",""))
    
     return arguments
 
