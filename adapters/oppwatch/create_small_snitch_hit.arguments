@@ -1,6 +1,6 @@
 {
 	"username"     : 0,
-	"relay_group"  : 1
+	"relay_group"  : 1,
 	"x_coordinate" : 2,
 	"y_coordinate" : 3,
 	"z_coordinate" : 4
