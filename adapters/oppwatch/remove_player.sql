@@ -1,0 +1,1 @@
+SELECT remove_player(%s);

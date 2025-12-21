@@ -1,0 +1,1 @@
+SELECT remove_nation(%s);

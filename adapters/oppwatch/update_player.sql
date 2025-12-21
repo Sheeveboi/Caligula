@@ -1,0 +1,1 @@
+SELECT update_player(%s, %s, %s, %s, %s, %s);
