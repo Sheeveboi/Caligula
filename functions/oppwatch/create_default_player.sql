@@ -1,28 +1,16 @@
--- DROP FUNCTION public.create_snitch_hit(text, text, text, text, text);
+-- DROP FUNCTION public.create_default_player(text);
 
-CREATE OR REPLACE FUNCTION public.create_snitch_hit(ign text, relay text, sname text, nl text, nation_name text)
+CREATE OR REPLACE FUNCTION public.create_default_player(ign text)
  RETURNS TABLE(response_code integer, message text)
  LANGUAGE plpgsql
 AS $function$
 
-	DECLARE 
-		response record;
-		new_uuid uuid;
+	DECLARE response record;
 
 	BEGIN
 
-		new_uuid = get_random_uuid();
-
 		-- create new record
-		INSERT INTO 
-			snitches (player, relay_group, created_at, hit_id, snitch_name, name_layer, nation_name) 
-			VALUES (ign, relay, CURRENT_TIMESTAMP, new_uuid, sname, nl, nation);
-
-		IF ign NOT IN (SELECT username FROM players) THEN
-			
-			PERFORM create_default_player(ign);
-
-		END IF;
+		INSERT INTO players (username, threat) VALUES (ign, 0);
 
 		-- create 200 ok response
 		FOR response IN (
@@ -30,7 +18,7 @@ AS $function$
 			SELECT 
 
 			200 as feather, 
-			CONCAT('Created snitch hit. Hit ID is ', new_uuid) as alto
+			'Created player.' as alto
 
 		) 
 		LOOP

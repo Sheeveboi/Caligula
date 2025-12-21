@@ -1,6 +1,6 @@
--- DROP FUNCTION public.update_player();
+-- DROP FUNCTION public.update_player(text, text, int4, text, text, text);
 
-CREATE OR REPLACE FUNCTION public.update_player(ign text, new_ign text, new_threat int, new_img text, new_notes text, new_nation text)
+CREATE OR REPLACE FUNCTION public.update_player(ign text, new_ign text, new_threat integer, new_img text, new_notes text, new_nation text)
  RETURNS TABLE(response_code integer, message text)
  LANGUAGE plpgsql
 AS $function$
@@ -72,7 +72,7 @@ AS $function$
 			DELETE FROM players WHERE username = ign;	
 
 			-- create new record
-			INSERT INTO players (username, threat, img_url, notes, nation) VALUES (new_ign, new_threat, new_notes, new_nation);
+			INSERT INTO players (username, threat, img_url, notes, nation) VALUES (new_ign, new_threat, new_img, new_notes, new_nation);
 	
 			-- send 200 ok response
 			FOR response IN (
@@ -95,5 +95,5 @@ AS $function$
 		END IF;
 		
 	END;
-$function$;
-
+$function$
+;

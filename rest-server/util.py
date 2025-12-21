@@ -79,6 +79,40 @@ def clip(string) :
     if (string[len(string) - 1] == " ") : string = string[:len(string) - 1];
     
     return string;
+    
+def parseArgumentQuery(string) :
+    
+    arguments = {};
+    composites = string.split("=");
+        
+    currentKey = clip(composites[0]);
+    
+    for i in range(1, len(composites) - 1) :
+        
+        composite = clip(composites[i]);
+        
+        if (composite[0] == "'") :
+            
+            nextQuotation = re.search("'", composite[1:]).span()[1] + 1
+            argument = composite[0:nextQuotation];
+            
+            arguments[currentKey] = str(argument.replace("'",""))
+            
+            composite = composite.replace(argument, "");
+            composite = composite.replace(",", "");
+            composite = clip(composite);
+            currentKey = composite;
+            
+        else :
+            
+            composite = composite.split(",")
+            
+            arguments[currentKey] = int(composite[0])
+            currentKey = clip(composite[1])
+            
+    arguments[currentKey] = clip(composites[len(composites) - 1])
+   
+    return arguments
 
     
     

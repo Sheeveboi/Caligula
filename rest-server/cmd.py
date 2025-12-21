@@ -54,28 +54,21 @@ async def run(c, query) :
     #-- start assemble arguments tuple
     
     query = query.split("(");
+    query[1] = query[1].replace(")", "");
     
     functionName = util.clip(query[0]);
-    argumentMappings = db.getFunctionArguments(functionName);
     arguments = [];
     
-    query[1] = query[1].replace(")", "");
-    query[1] = query[1].split(",");
+    argumentMappings = db.getFunctionArguments(functionName);
+    argumentPairs = util.parseArgumentQuery(query[1])
     
-    for argument in query[1] :
+    print(argumentPairs);
     
-        argument = argument.split("=");
+    for argument in argumentPairs :
+    
+        mapping = argumentMappings[argument]
         
-        argumentKey = util.clip(argument[0]);
-        
-        argumentValue = None;
-        
-        if ("'" in argument[1]) : argumentValue = util.clip(argument[1].replace("'" , ""));
-        else                    : argumentValue = int(argument[1]);
-        
-        mapping = argumentMappings[argumentKey];
-        
-        arguments.insert(mapping, argumentValue);
+        arguments.insert(mapping, argumentPairs[argument]);
     
     #-- end assemble arguments tuple 
     

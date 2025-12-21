@@ -1,6 +1,6 @@
--- DROP FUNCTION public.update_nation();
+-- DROP FUNCTION public.update_nation(text, text, int4, text, text);
 
-CREATE OR REPLACE FUNCTION public.update_nation(nation text, new_name text, new_threat int, new_img text, new_notes text)
+CREATE OR REPLACE FUNCTION public.update_nation(nation text, new_name text, new_threat integer, new_img text, new_notes text)
  RETURNS TABLE(response_code integer, message text)
  LANGUAGE plpgsql
 AS $function$
@@ -41,7 +41,7 @@ AS $function$
 		ELSE
 
 			-- remove old record
-			DELETE FROM nation_name WHERE nation_name = nation;	
+			DELETE FROM nations WHERE nation_name = nation;	
 
 			-- create new record
 			INSERT INTO nations (nation_name, threat, img_url, notes) VALUES (new_name, new_threat, new_img, new_notes);
@@ -67,4 +67,5 @@ AS $function$
 		END IF;
 		
 	END;
-$function$;
+$function$
+;

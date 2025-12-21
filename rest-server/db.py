@@ -25,7 +25,7 @@ def cacheFunctions() :
             databaseDirectory = f"{directory}/{databaseDirectory}";
             sqlFiles = os.listdir(databaseDirectory);
             
-            print(f"adapter files: \n{nsqlFiles}");
+            print(f"adapter files: \n{sqlFiles}");
             
             for sqlFilename in sqlFiles : 
                 
