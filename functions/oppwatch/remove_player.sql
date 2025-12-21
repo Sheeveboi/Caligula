@@ -1,5 +1,3 @@
--- DROP FUNCTION public.remove_player();
-
 -- DROP FUNCTION public.remove_player(text);
 
 CREATE OR REPLACE FUNCTION public.remove_player(ign text)
@@ -42,7 +40,7 @@ AS $function$
 				SELECT 
 
 				200 as feather, 
-				'Channel Removed.' as alto
+				'Player Removed.' as alto
 
 			) 
 
@@ -57,4 +55,5 @@ AS $function$
 
 		END IF;
 	END;
-$function$;
+$function$
+;

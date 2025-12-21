@@ -96,7 +96,7 @@ def parseArgumentQuery(string) :
             nextQuotation = re.search("'", composite[1:]).span()[1] + 1
             argument = composite[0:nextQuotation];
             
-            arguments[currentKey] = str(argument.replace("'",""))
+            arguments[currentKey] = str(argument).replace("'","")
             
             composite = composite.replace(argument, "");
             composite = composite.replace(",", "");
@@ -110,7 +110,7 @@ def parseArgumentQuery(string) :
             arguments[currentKey] = int(composite[0])
             currentKey = clip(composite[1])
             
-    arguments[currentKey] = clip(composites[len(composites) - 1].replace("'",""))
+    arguments[currentKey] = clip(composites[len(composites) - 1]).replace("'","")
    
     return arguments
 
