@@ -18,6 +18,8 @@ drop table pos_igns;
 create table pos_igns (
  	username text not null,
  	
+ 	reason text,
+ 	
  	primary key (username)
 );
  	
@@ -31,8 +33,8 @@ create table relay_groups(
  	description text,
  	
  	check (threshold <= 3),
- 	check (len(nation) <= 50),
- 	check (len(description) < 250),
+ 	check (LENGTH(nation) <= 50),
+ 	check (LENGTH(description) < 250),
  	
  	primary key (relay_group)
 );

@@ -49,6 +49,8 @@ create table snitches(
 	
 	player text not null,
 	created_at timestamp not null,
+	hit_id uuid not null,
+	relay_group text not null,
 	
 	snitch_name text,
 	name_layer text,

@@ -1,4 +1,10 @@
-CREATE OR REPLACE FUNCTION "patindex"( "pattern" VARCHAR, "expression" VARCHAR ) RETURNS INT AS $BODY$
+-- DROP FUNCTION public.patindex(varchar, varchar);
+
+CREATE OR REPLACE FUNCTION public.patindex(pattern character varying, expression character varying)
+ RETURNS integer
+ LANGUAGE sql
+ IMMUTABLE
+AS $function$
 SELECT
     COALESCE(
         STRPOS(
@@ -16,4 +22,5 @@ SELECT
         ,0
     )
 ;
-$BODY$ LANGUAGE 'sql' IMMUTABLE;
+$function$
+;
