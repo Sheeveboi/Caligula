@@ -18,14 +18,14 @@ def cacheFunctions() :
         directory = config["Sql"]["function_dir"];
         databaseDirectories = os.listdir(directory);
         
-        print(databaseDirectories);
+        print(f"directories: \n{databaseDirectories}");
         
         for databaseDirectory in databaseDirectories :
             
             databaseDirectory = f"{directory}/{databaseDirectory}";
             sqlFiles = os.listdir(databaseDirectory);
             
-            print(sqlFiles);
+            print(f"adapter files: \n{nsqlFiles}");
             
             for sqlFilename in sqlFiles : 
                 
@@ -33,7 +33,7 @@ def cacheFunctions() :
                 functionName = sqlFilename.replace(".sql", "");
                 functionName = functionName.replace(".arguments", "");
                 
-                print(functionName);
+                print(f"function: {functionName}");
                 
                 if (functionName not in functions) : 
                     

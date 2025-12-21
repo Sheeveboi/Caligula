@@ -1,0 +1,7 @@
+{
+	"channel_id" : 0,
+	"relay"      : 1,
+	"new_relay"  : 2,
+	"new_type"   : 3,
+	"new_notif"  : 4
+}
