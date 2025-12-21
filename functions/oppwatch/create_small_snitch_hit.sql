@@ -1,6 +1,6 @@
--- DROP FUNCTION public.create_snitch_hit(text, text, text, text, text);
+-- DROP FUNCTION public.create_small_snitch_hit(text);
 
-CREATE OR REPLACE FUNCTION public.create_snitch_hit(ign text, relay text, sname text, nl text, nation_name text)
+CREATE OR REPLACE FUNCTION public.create_small_snitch_hit(ign text)
  RETURNS TABLE(response_code integer, message text)
  LANGUAGE plpgsql
 AS $function$
@@ -14,10 +14,9 @@ AS $function$
 		new_uuid = get_random_uuid();
 
 		-- create new record
-		INSERT INTO 
-			snitches (player, relay_group, created_at, hit_id, snitch_name, name_layer, nation_name) 
-			VALUES (ign, relay, CURRENT_TIMESTAMP, new_uuid, sname, nl, nation);
+		INSERT INTO snitches (player, created_at, hit_id) VALUES (ign, CURRENT_TIMESTAMP, new_uuid);
 
+		-- create new player if does not exist
 		IF ign NOT IN (SELECT username FROM players) THEN
 			
 			PERFORM create_default_player(ign);

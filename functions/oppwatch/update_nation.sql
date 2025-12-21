@@ -52,7 +52,7 @@ AS $function$
 				SELECT 
 	
 				200 as feather, 
-				'Updated Player.' as alto
+				'Updated Nation.' as alto
 	
 			) 
 			LOOP
