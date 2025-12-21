@@ -1,0 +1,1 @@
+SELECT create_snitch_hit(%s, %s, %s, %s, %s, %s, %s, %s);
