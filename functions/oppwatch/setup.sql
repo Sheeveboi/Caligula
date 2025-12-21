@@ -51,13 +51,13 @@ create table snitches(
 	player text not null,
 	relay_group text not null,
 	
-	x_cords float not null,
-	z_cords float not null,
+	x_cords int not null,
+	z_cords int not null,
 	
 	snitch_name text,
 	name_layer text,
 	nation text,
-	y_cords float,
+	y_cords int,
 	
 	hit_id uuid DEFAULT gen_random_uuid(),
 	created_at timestamp DEFAULT CURRENT_TIMESTAMP,

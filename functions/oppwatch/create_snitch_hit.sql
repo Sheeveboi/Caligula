@@ -1,6 +1,6 @@
--- DROP FUNCTION public.create_snitch_hit(text, text, text, text, text, float8, float8, float8);
+-- DROP FUNCTION public.create_snitch_hit(text, text, text, text, text, int4, int4, int4);
 
-CREATE OR REPLACE FUNCTION public.create_snitch_hit(ign text, relay text, sname text, nl text, nation text, x double precision, y double precision, z double precision)
+CREATE OR REPLACE FUNCTION public.create_snitch_hit(ign text, relay text, sname text, nl text, nation text, x integer, y integer, z integer)
  RETURNS TABLE(response_code integer, message text)
  LANGUAGE plpgsql
 AS $function$

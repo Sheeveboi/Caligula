@@ -1,6 +1,6 @@
--- DROP FUNCTION public.create_small_snitch_hit(text);
+-- DROP FUNCTION public.create_small_snitch_hit(text, int4, int4, int4);
 
-CREATE OR REPLACE FUNCTION public.create_small_snitch_hit(ign text, x float, y float, z float)
+CREATE OR REPLACE FUNCTION public.create_small_snitch_hit(ign text, relay text, x integer, y integer, z integer)
  RETURNS TABLE(response_code integer, message text)
  LANGUAGE plpgsql
 AS $function$
@@ -11,7 +11,7 @@ AS $function$
 	BEGIN
 
 		-- create new record
-		INSERT INTO snitches (player, x_cords, y_cords, z_cords) VALUES (ign, x, y, z);
+		INSERT INTO snitches (player, x_cords, y_cords, z_cords) VALUES (ign, relay, x, y, z);
 
 		-- create new player if does not exist
 		IF ign NOT IN (SELECT username FROM players) THEN

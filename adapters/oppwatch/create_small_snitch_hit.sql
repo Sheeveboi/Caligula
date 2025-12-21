@@ -1,1 +1,1 @@
-SELECT create_small_snitch_hit(%s, %s, %s, %s);
+SELECT create_small_snitch_hit(%s, %s, %s, %s, %s);
