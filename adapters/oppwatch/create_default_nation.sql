@@ -1,0 +1,1 @@
+SELECT create_default_nation(%s);
