@@ -1,6 +1,6 @@
--- DROP FUNCTION public.create_snitch_hit(text, text, text, text, text);
+-- DROP FUNCTION public.create_snitch_hit(text, text, text, text, text, float8, float8, float8);
 
-CREATE OR REPLACE FUNCTION public.create_snitch_hit(ign text, relay text, sname text, nl text, nation text, x float, y float, z float)
+CREATE OR REPLACE FUNCTION public.create_snitch_hit(ign text, relay text, sname text, nl text, nation text, x double precision, y double precision, z double precision)
  RETURNS TABLE(response_code integer, message text)
  LANGUAGE plpgsql
 AS $function$
@@ -20,7 +20,7 @@ AS $function$
 			SELECT 
 
 			200 as feather, 
-			CONCAT('Created snitch hit.') as alto
+			CONCAT('Created snitch hit. Hit ID is ', new_uuid) as alto
 
 		) 
 		LOOP

@@ -7,11 +7,8 @@ AS $function$
 
 	DECLARE 
 		response record;
-		new_uuid uuid;
 
 	BEGIN
-
-		new_uuid = get_random_uuid();
 
 		-- create new record
 		INSERT INTO snitches (player, x_cords, y_cords, z_cords) VALUES (ign, x, y, z);
