@@ -1,4 +1,4 @@
--- drop table players;
+drop table players;
 create table players(
 
 	username text not null,
@@ -23,7 +23,7 @@ create table players(
 	
 );
 
--- drop table nations;
+drop table nations;
 create table nations(
 
 	nation_name text not null,
