@@ -7,6 +7,7 @@ create table players(
 	img_url text,
 	notes text,
 	nation text,
+	last_snitch uuid, 
 	 
 	check (LENGTH(notes) <= 2000),
 	check (threat <= 3),
