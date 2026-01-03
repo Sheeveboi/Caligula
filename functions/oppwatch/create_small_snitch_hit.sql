@@ -1,4 +1,4 @@
--- DROP FUNCTION public.create_small_snitch_hit(text, int4, int4, int4);
+-- DROP FUNCTION public.create_small_snitch_hit(text, text, int4, int4, int4);
 
 CREATE OR REPLACE FUNCTION public.create_small_snitch_hit(ign text, relay text, x integer, y integer, z integer)
  RETURNS TABLE(response_code integer, message text)
@@ -17,6 +17,16 @@ AS $function$
 		IF ign NOT IN (SELECT username FROM players) THEN
 			
 			PERFORM create_default_player(ign);
+
+		ELSE 
+
+			UPDATE players
+			SET 
+				last_x = x,
+				last_y = y,
+				last_z = z
+			WHERE 
+				username = ign;
 
 		END IF;
 
