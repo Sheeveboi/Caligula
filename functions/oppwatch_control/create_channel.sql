@@ -25,7 +25,7 @@ AS $function$
 
 				SELECT 
 
-				304 as feather, 
+				400 as feather, 
 				'Relay conflict! A channel may not connect to a relay group more than once.' as alto
 
 			) 
@@ -44,8 +44,8 @@ AS $function$
 			INSERT INTO channels (channel_id, relay_group, channel_type) VALUES (id, relay, ctype);
 	
 			-- create new relay group if needed
-			INSERT INTO relay_groups (relay_group)
-			SELECT relay
+			INSERT INTO relay_groups (relay_group, auto_alerts)
+			SELECT relay, false
 			WHERE relay NOT IN (SELECT relay_group from relay_groups);
 	
 			FOR response IN (
