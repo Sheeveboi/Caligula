@@ -36,6 +36,8 @@ create table nations(
 	
 	img_url text,
 	notes text,
+	guild_id int,
+	invite text,
 	 
 	check (LENGTH(notes) <= 2000),
 	check (threat <= 3),
