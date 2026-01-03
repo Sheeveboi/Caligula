@@ -1,5 +1,3 @@
-
-
 -- DROP FUNCTION public.remove_nation(text);
 
 CREATE OR REPLACE FUNCTION public.remove_nation(nation text)
@@ -42,7 +40,7 @@ AS $function$
 				SELECT 
 
 				200 as feather, 
-				'Channel Removed.' as alto
+				'Nation Removed.' as alto
 
 			) 
 
@@ -57,5 +55,5 @@ AS $function$
 
 		END IF;
 	END;
-$function$;
+$function$
 ;
