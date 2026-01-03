@@ -7,11 +7,13 @@ AS $function$
 
 	DECLARE 
 		response record;
-
+		id uuid;
 	BEGIN
 
+		id := gen_random_uuid();
+
 		-- create new record
-		INSERT INTO snitches (player, x_cords, y_cords, z_cords) VALUES (ign, relay, x, y, z);
+		INSERT INTO snitches (player, x_cords, y_cords, z_cords, hit_id) VALUES (ign, relay, x, y, z, id);
 
 		-- create new player if does not exist
 		IF ign NOT IN (SELECT username FROM players) THEN
@@ -24,7 +26,8 @@ AS $function$
 			SET 
 				last_x = x,
 				last_y = y,
-				last_z = z
+				last_z = z,
+				last_snitch = id
 			WHERE 
 				username = ign;
 

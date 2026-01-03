@@ -64,7 +64,7 @@ create table snitches(
 	nation text,
 	y_cords int,
 	
-	hit_id uuid DEFAULT gen_random_uuid(),
+	hit_id uuid not null,
 	created_at timestamp DEFAULT CURRENT_TIMESTAMP,
 	
 	check (LENGTH(snitch_name) <= 75),
