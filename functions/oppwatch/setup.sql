@@ -8,6 +8,11 @@ create table players(
 	notes text,
 	nation text,
 	last_snitch uuid, 
+	reps int,
+	
+	last_x int,
+	last_y int,
+	last_z int,
 	 
 	check (LENGTH(notes) <= 2000),
 	check (threat <= 3),

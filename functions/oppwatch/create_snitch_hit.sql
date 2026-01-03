@@ -14,6 +14,25 @@ AS $function$
 			snitches (player, relay_group, snitch_name, name_layer, nation_name, x_cords, y_cords, z_cords) 
 			VALUES (ign, relay, sname, nl, nation, x, y, z);
 
+
+		-- create new player if does not exist
+		IF ign NOT IN (SELECT username FROM players) THEN
+			
+			PERFORM create_default_player(ign);
+
+		ELSE 
+
+			UPDATE players
+			SET 
+				last_x = x,
+				last_y = y,
+				last_z = z
+			WHERE 
+				username = ign;
+
+		END IF;
+
+
 		-- create 200 ok response
 		FOR response IN (
 

@@ -41,7 +41,10 @@ async def sql(c, sql) :
     
     logger.log(f"-- SQL executed: {sql}");
     
-    await disc.sendMsg(c['channel_id'], db.runSQL(sql, database));
+    out = db.runSQL(sql, database);
+    print(out);
+    
+    await disc.sendMsg(c['channel_id'], str(out));
 
 disc.addCommand(sql, plaintext = True);
 

@@ -110,7 +110,7 @@ class MyServer(BaseHTTPRequestHandler):
                     
             paths.sort(key = sortKey, reverse = True);
             
-            postHandlers[paths[0]](self);
+            if (len(paths) != 0) : postHandlers[paths[0]](self);
             
         except Exception as e : logging.error("uh oh",exc_info=True);
         
@@ -158,7 +158,6 @@ def handleFunctionRequest(c) :
     requiredHeaders = ['Function', 'Database'];
     
     for header in requiredHeaders :
-        
         if (not header in c.headers) : 
             return sendError(c, 400, f"'{argument}' header not present in request.");
     
@@ -174,10 +173,13 @@ def handleFunctionRequest(c) :
     tuple(arguments.items());
      
     out = db.runFunction(c.headers["Function"], arguments, c.headers['Database']);
+    out = bytes(str(out), 'utf-8');
+    
+    print(out);
     
     c.send_response(200);
     c.end_headers();
-    c.wfile.write(bytes(out, 'utf-8'));
+    c.wfile.write(out);
     
 addGetHandler(handleFunctionRequest, "/functions");
 
