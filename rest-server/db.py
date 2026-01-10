@@ -23,7 +23,7 @@ def cacheFunctions() :
         for databaseDirectory in databaseDirectories :
             
             databaseGetDirectory = f"{directory}/{databaseDirectory}/get";
-            databaseGetDirectory = f"{directory}/{databaseDirectory}/post";
+            databasePostDirectory = f"{directory}/{databaseDirectory}/post";
             sqlGetFiles = os.listdir(databaseGetDirectory);
             sqlPostFiles = os.listdir(databasePostDirectory);
             
