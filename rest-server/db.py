@@ -48,7 +48,9 @@ def cacheFunctions() :
                 if (sqlFilename in sqlGetFiles)  : functions[functionName]["method"] = "get";
                 if (sqlFilename in sqlPostFiles) : functions[functionName]["method"] = "post";
                 
-                if (".sql" in sqlFilename) : functions[functionName]['sql'] = open(os.path.join(databaseDirectory, sqlFilename), "r").read();
+                if (".sql" in sqlFilename) : 
+                    functions[functionName]['sql'] = 
+                        open(os.path.join(f"{directory}/{databaseDirectory}/{functions[functionName]["method"]}", sqlFilename), "r").read();
                     
             print(f"{databaseDirectories} functions:");        
             print([function for function in functions]);
