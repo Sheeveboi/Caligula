@@ -48,7 +48,7 @@ def initialize() :
 def log(text) :
     
     f = open("logging.txt", "a");
-    f.write(f"{text} \n");
+    f.write(f"{str(text)} \n");
     f.close(); 
     
-    loggingMessages.put(f"**Log: ** {text}");
+    loggingMessages.put(f"**Log: ** {str(text)}");
