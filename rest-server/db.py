@@ -22,11 +22,12 @@ def cacheFunctions() :
         
         for databaseDirectory in databaseDirectories :
             
-            databaseDirectory = f"{directory}/{databaseDirectory}";
-            sqlGetFiles = os.listdir(f"{databaseDirectory}/get");
-            sqlPostFiles = os.listdir(f"{databaseDirectory}/post");
+            databaseGetDirectory = f"{directory}/{databaseDirectory}/get";
+            databaseGetDirectory = f"{directory}/{databaseDirectory}/post";
+            sqlGetFiles = os.listdir(databaseGetDirectory);
+            sqlPostFiles = os.listdir(databasePostDirectory);
             
-            print(f"adapter files: \n{sqlFiles}");
+            print(f"adapter files: \n{[sqlGetFiles + sqlPostFiles]}");
             
             for sqlFilename in [sqlGetFiles + sqlPostFiles] : 
                 
