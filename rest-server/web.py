@@ -165,8 +165,11 @@ def handlePostFunctionRequest(c) :
     
     logger.log(f"-- executing post REST function {functionName}");
 
-    arguments = c.rfile.read(int(c.headers['Content-Length']));
-    arguments = json.loads(arguments.decode('utf-8'));
+    arguments = {};
+
+    if ('Content-Length' in c.headers) : 
+        arguments = c.rfile.read(int(c.headers['Content-Length']));
+        arguments = json.loads(arguments.decode('utf-8'));
             
     tuple(arguments.items());
      
@@ -197,8 +200,11 @@ def handleGetFunctionRequest(c) :
     
     logger.log(f"-- executing get REST function {functionName}");
 
-    arguments = c.rfile.read(int(c.headers['Content-Length']));
-    arguments = json.loads(arguments.decode('utf-8'));
+    arguments = {};
+
+    if ('Content-Length' in c.headers) : 
+        arguments = c.rfile.read(int(c.headers['Content-Length']));
+        arguments = json.loads(arguments.decode('utf-8'));
             
     tuple(arguments.items());
      
