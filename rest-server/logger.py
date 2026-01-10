@@ -20,11 +20,13 @@ def run() :
             
             if (not loggingMessages.empty()) : 
                 
+                text = loggingMessages.get();
+                
                 f = open("logging.txt", "a");
-                f.write(f"{str(text)} \n");
+                f.write(f"{text} \n");
                 f.close(); 
                     
-                await disc.sendMsg(config["Discord"]["logging_channel"], loggingMessages.get());
+                await disc.sendMsg(config["Discord"]["logging_channel"], text);
                     
                 loggingMessages.task_done();
 
