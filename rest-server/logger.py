@@ -19,6 +19,10 @@ def run() :
         while True :
             
             if (not loggingMessages.empty()) : 
+                
+                f = open("logging.txt", "a");
+                f.write(f"{str(text)} \n");
+                f.close(); 
                     
                 await disc.sendMsg(config["Discord"]["logging_channel"], loggingMessages.get());
                     
@@ -45,10 +49,4 @@ def initialize() :
     
     run();
     
-def log(text) :
-    
-    f = open("logging.txt", "a");
-    f.write(f"{str(text)} \n");
-    f.close(); 
-    
-    loggingMessages.put(f"**Log: ** {str(text)}");
+def log(text) : loggingMessages.put(f"**Log: ** {str(text)}");
