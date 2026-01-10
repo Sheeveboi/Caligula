@@ -218,7 +218,8 @@ def handleGetFunctionRequest(c) :
     data.pop(0);
     if (len(data) > 0) : out["data"] = data;
     
-    if (not data) :
+    elif (data == False) :
+        print("sending fail");
         c.send_response_only(404, message = "Database function not found for request method 'GET'.");
         return;
     
