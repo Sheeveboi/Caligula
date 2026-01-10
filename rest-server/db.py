@@ -89,8 +89,6 @@ def runSQL(sql, database, arguments = None, connection = None,) :
     
     #create cursor
     cursor = connection.cursor();
-    
-    print(sql);
 
     try :
         
@@ -99,6 +97,8 @@ def runSQL(sql, database, arguments = None, connection = None,) :
     
         #gather result
         out = cursor.fetchall();
+        
+        out.insert(0, [desc[0] for desc in cursor.description]);
         
     except Exception as e : out = f"Sql warning: {e}";
     

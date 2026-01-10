@@ -208,20 +208,26 @@ def handleGetFunctionRequest(c) :
             
     tuple(arguments.items());
      
-    out = db.runFunction(c.headers["Function"], arguments, c.headers['Database'], "get");
+    data = db.runFunction(c.headers["Function"], arguments, c.headers['Database'], "get");
     
-    if (not out) :
+    out = {
+        "names" : data[0],
+        "data"  : []
+    }
+    
+    data.pop(0);
+    if (len(data) > 0) : out["data"] = data;
+    
+    if (not data) :
         c.send_response_only(404, message = "Database function not found for request method 'GET'.");
         return;
     
-    out = bytes(str(out), 'utf-8');
-    print(out);
-    
     c.send_response(200);
     c.end_headers();
-    c.wfile.write(out);
     
-addGetHandler(handlePostFunctionRequest, "/functions");
+    c.wfile.write(bytes(json.dumps(out), 'utf-8'));
+    
+addGetHandler(handleGetFunctionRequest, "/functions");
 
 def run() :  
     running = True;
