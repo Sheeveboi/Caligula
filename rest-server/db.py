@@ -23,11 +23,12 @@ def cacheFunctions() :
         for databaseDirectory in databaseDirectories :
             
             databaseDirectory = f"{directory}/{databaseDirectory}";
-            sqlFiles = os.listdir(databaseDirectory);
+            sqlGetFiles = os.listdir(f"{databaseDirectory}/get");
+            sqlPostFiles = os.listdir(f"{databaseDirectory}/post");
             
             print(f"adapter files: \n{sqlFiles}");
             
-            for sqlFilename in sqlFiles : 
+            for sqlFilename in [sqlGetFiles + sqlPostFiles] : 
                 
                 functionName = "";
                 functionName = sqlFilename.replace(".sql", "");
@@ -39,25 +40,25 @@ def cacheFunctions() :
                     
                     functions[functionName] = {
                         "sql" : "",
-                        "arguments" : {}
+                        "arguments" : {},
+                        "method" : "unknown"
                     }
-                
-                if (".sql" in sqlFilename) : 
                     
-                    functions[functionName]['sql'] = open(os.path.join(databaseDirectory, sqlFilename), "r").read();
+                if (sqlFilename in sqlGetFiles)  : functions[functionName]["method"] = "get";
+                if (sqlFilename in sqlPostFiles) : functions[functionName]["method"] = "post";
                 
-                if (".arguments" in sqlFilename) : 
-                    
-                    functions[functionName]['arguments'] = json.loads(open(os.path.join(databaseDirectory, sqlFilename), "r").read());
+                if (".sql" in sqlFilename) : functions[functionName]['sql'] = open(os.path.join(databaseDirectory, sqlFilename), "r").read();
                     
             print(f"{databaseDirectories} functions:");        
             print([function for function in functions]);
         
     except Exception as e : logger.log(f"-- SQL function caching error {e}");
 
-def runFunction(functionName, functionArguments, database, connection = None) : 
+def runFunction(functionName, functionArguments, database, method, connection = None) : 
     
     function = functions[functionName];
+    
+    if (method != function["method"]) : return False;
     
     return runSQL(function['sql'], database, arguments = functionArguments, connection = connection);
     

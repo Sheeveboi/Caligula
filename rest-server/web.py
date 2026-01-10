@@ -153,7 +153,7 @@ def echo(c) :
     
 addGetHandler(echo, "/echo");
 
-def handleFunctionRequest(c) :
+def handlePostFunctionRequest(c) :
     
     requiredHeaders = ['Function', 'Database'];
     
@@ -163,25 +163,59 @@ def handleFunctionRequest(c) :
     
     functionName = c.headers['Function'];
     
-    print("doing something??");
-    
-    logger.log(f"-- executing REST function {functionName}");
+    logger.log(f"-- executing post REST function {functionName}");
 
     arguments = c.rfile.read(int(c.headers['Content-Length']));
     arguments = json.loads(arguments.decode('utf-8'));
             
     tuple(arguments.items());
      
-    out = db.runFunction(c.headers["Function"], arguments, c.headers['Database']);
-    out = bytes(str(out), 'utf-8');
+    out = db.runFunction(c.headers["Function"], arguments, c.headers['Database'], "post");
     
+    if (not out) :
+        c.send_response_only(404, message = "Database function not found for request method 'POST'.");
+        return;
+    
+    out = bytes(str(out), 'utf-8');
     print(out);
     
     c.send_response(200);
     c.end_headers();
     c.wfile.write(out);
     
-addGetHandler(handleFunctionRequest, "/functions");
+addPostHandler(handlePostFunctionRequest, "/functions");
+
+def handleGetFunctionRequest(c) :
+    
+    requiredHeaders = ['Function', 'Database'];
+    
+    for header in requiredHeaders :
+        if (not header in c.headers) : 
+            return sendError(c, 400, f"'{argument}' header not present in request.");
+    
+    functionName = c.headers['Function'];
+    
+    logger.log(f"-- executing get REST function {functionName}");
+
+    arguments = c.rfile.read(int(c.headers['Content-Length']));
+    arguments = json.loads(arguments.decode('utf-8'));
+            
+    tuple(arguments.items());
+     
+    out = db.runFunction(c.headers["Function"], arguments, c.headers['Database'], "get");
+    
+    if (not out) :
+        c.send_response_only(404, message = "Database function not found for request method 'GET'.");
+        return;
+    
+    out = bytes(str(out), 'utf-8');
+    print(out);
+    
+    c.send_response(200);
+    c.end_headers();
+    c.wfile.write(out);
+    
+addGetHandler(handlePostFunctionRequest, "/functions");
 
 def run() :  
     running = True;
