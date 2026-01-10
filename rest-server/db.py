@@ -27,7 +27,7 @@ def cacheFunctions() :
             sqlGetFiles = os.listdir(databaseGetDirectory);
             sqlPostFiles = os.listdir(databasePostDirectory);
             
-            print(f"adapter files: \n{sqlGetFiles + sqlPostFiles}");
+            print(f"adapter files: {sqlGetFiles + sqlPostFiles}");
             
             for sqlFilename in sqlGetFiles + sqlPostFiles : 
                 
@@ -49,8 +49,7 @@ def cacheFunctions() :
                 if (sqlFilename in sqlPostFiles) : functions[functionName]["method"] = "post";
                 
                 if (".sql" in sqlFilename) : 
-                    functions[functionName]['sql'] = 
-                        open(os.path.join(f"{directory}/{databaseDirectory}/{functions[functionName]["method"]}", sqlFilename), "r").read();
+                    functions[functionName]['sql'] = open(os.path.join(f"{directory}/{databaseDirectory}/{functions[functionName]["method"]}", sqlFilename), "r").read();
                     
             print(f"{databaseDirectories} functions:");        
             print([function for function in functions]);
