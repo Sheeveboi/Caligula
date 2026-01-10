@@ -27,9 +27,9 @@ def cacheFunctions() :
             sqlGetFiles = os.listdir(databaseGetDirectory);
             sqlPostFiles = os.listdir(databasePostDirectory);
             
-            print(f"adapter files: \n{[sqlGetFiles + sqlPostFiles]}");
+            print(f"adapter files: \n{sqlGetFiles + sqlPostFiles}");
             
-            for sqlFilename in [sqlGetFiles + sqlPostFiles] : 
+            for sqlFilename in sqlGetFiles + sqlPostFiles : 
                 
                 functionName = "";
                 functionName = sqlFilename.replace(".sql", "");
